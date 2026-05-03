@@ -7,6 +7,7 @@
     </a>
 
     <!-- Center: Search Pill -->
+    <% if (currPath !== "/login" && currPath !== "/signUp") { %>
     <div class="search-pill shadow-sm d-none d-md-flex align-items-center justify-content-center mx-auto border rounded-pill px-3 py-2 bg-white" style="cursor: pointer;">
       <div class="fw-bold px-3">Anywhere</div>
       <div class="vr"></div>
@@ -17,6 +18,7 @@
         <i class="fa-solid fa-magnifying-glass" style="font-size: 0.8rem;"></i>
       </div>
     </div>
+    <% } %>
 
     <!-- Right: User Menu -->
     <div class="d-flex align-items-center ms-auto">

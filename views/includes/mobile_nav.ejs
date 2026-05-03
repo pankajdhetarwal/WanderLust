@@ -1,15 +1,16 @@
+<% if (currPath !== "/login" && currPath !== "/signUp") { %>
 <div class="mobile-nav d-md-none border-top bg-white py-2 fixed-bottom">
     <div class="d-flex justify-content-around align-items-center">
-        <a href="/listings" class="mobile-nav-link active">
+        <a href="/listings" class="mobile-nav-link <%= currPath === '/listings' ? 'active' : '' %>">
             <i class="fa-solid fa-magnifying-glass"></i>
             <span>Explore</span>
         </a>
-        <a href="#" class="mobile-nav-link">
+        <a href="/listings" class="mobile-nav-link">
             <i class="fa-regular fa-heart"></i>
             <span>Wishlists</span>
         </a>
         <% if(!currentUser) { %>
-            <a href="/login" class="mobile-nav-link">
+            <a href="/login" class="mobile-nav-link <%= currPath === '/login' ? 'active' : '' %>">
                 <i class="fa-regular fa-circle-user"></i>
                 <span>Log in</span>
             </a>
@@ -21,3 +22,4 @@
         <% } %>
     </div>
 </div>
+<% } %>

@@ -86,6 +86,7 @@ app.use((req,res,next)=>{
     res.locals.error=req.flash("error");
     res.locals.currentUser=req.user;
     res.locals.mapToken=process.env.MAP_TOKEN;
+    res.locals.currPath = req.path;
     next();
 });
 
