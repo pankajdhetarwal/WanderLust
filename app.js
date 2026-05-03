@@ -93,9 +93,9 @@ app.use((req,res,next)=>{
 //     res.send(registeredUser);
 // })
 
-app.get("/",(req,res)=>{
-    res.send("root is working");
-})
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 // app.get("/testlisting",async (req,res)=>{
 //     let samplelisting=new listing({
 //         title:"My new villa",
