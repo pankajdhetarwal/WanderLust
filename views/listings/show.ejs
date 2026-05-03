@@ -1,0 +1,168 @@
+<% layout('/layouts/boilerplate') -%>
+
+    <body>
+        <div class="show-container">
+            <h1 class="show-title">
+                <%=property.title %>
+            </h1>
+
+            <div class="listing-detail-card">
+                <!-- Image Section -->
+                <div class="detail-image-wrapper">
+                    <img src="<%=property.image?.url %>" alt="<%=property.title %>" class="detail-image">
+                </div>
+
+                <!-- Details Section -->
+                <div class="detail-info">
+                    <p>Owner : <i><b>
+                                <%= property.owner?.username || "Unknown Owner" %>
+                            </b></i></p>
+
+                    <p class="detail-description">
+                        <%=property.description %>
+                    </p>
+
+                    <div class="detail-price">
+                        <span class="price-amount">&#8377; <%= property.price ? property.price.toLocaleString("en-IN")
+                                : "N/A" %></span>
+                    </div>
+
+                    <div class="detail-location">
+                        <p class="location-city"><i class="fa-solid fa-location-dot"></i>
+                            <%= property.location %>
+                        </p>
+                        <p class="location-country">
+                            <%= property.country %>
+                        </p>
+                    </div>
+
+                    <!-- Action Buttons -->
+
+                    <div class="action-buttons">
+                        <form action="/listings/<%=property._id %>/edit" method="GET" style="display: inline;">
+                            <button type="submit" class="btn btn-edit addbtn">Edit</button>
+                        </form>
+                        <form action="/listings/<%=property._id%>?_method=DELETE" method="POST"
+                            style="display: inline;">
+                            <button type="submit" class="btn btn-delete">Delete</button>
+                        </form>
+                    </div>
+
+                    <div>
+
+                        <h4>Leave a Review</h4>
+
+                        <form action="/listings/<%=property._id %>/reviews" method="post" novalidate
+                            class="needs-validation">
+
+                            <fieldset class="starability-slot">
+
+                                <legend>Rating:</legend>
+
+                                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0"
+                                    checked aria-label="No rating." />
+
+                                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+
+                                <label for="first-rate1" title="Terrible">1 star</label>
+
+                                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+
+                                <label for="first-rate2" title="Not good">2 stars</label>
+
+                                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+
+                                <label for="first-rate3" title="Average">3 stars</label>
+
+                                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+
+                                <label for="first-rate4" title="Very good">4 stars</label>
+
+                                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+
+                                <label for="first-rate5" title="Amazing">5 stars</label>
+
+                                <span class="starability-focus-ring"></span>
+
+                            </fieldset>
+
+                            <label for="comment" class="form-label">Comments</label>
+
+                            <textarea name="review[comment]" id="comment" rows="5" cols="10" class="form-control mb-3"
+                                required></textarea>
+
+                            <textarea class="invalid-feedback">
+Please add some comment for review
+                        </textarea>
+
+                            <button class="btn btn-outline-dark">submit</button>
+
+                        </form>
+
+                        <hr>
+
+
+                        <% if(property.reviews.length>0){ %>
+
+                            <div class="row">
+                                <h4>All Reviews</h4>
+                                <% for(review of property.reviews){ %>
+
+                                    <div class="card col-5 mb-3 ms-4">
+
+                                        <div class="card-body">
+
+                                            <h5 class="card-title">
+                                                <%= review.author?.username %>
+                                            </h5>
+
+                                            <p class="card-text">
+                                                <%= review.comment %>
+                                            </p>
+
+                                            <!-- ⭐ STAR DISPLAY OUTPUT -->
+                                            <div class="starability-result" data-rating="<%= review.rating %>">
+
+                                            </div>
+
+                                            <form
+                                                action="/listings/<%=property._id%>/reviews/<%=review._id%>?_method=DELETE"
+                                                method="POST" class="mb-3">
+
+                                                <button class="btn btn-sm btn-dark">
+                                                    delete
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+
+                                    <% } %>
+
+                            </div>
+                            <% } else{ %>
+                                <p>No reviews yet</p>
+                                <% } %>
+
+                                    <div class="row">
+                                        <h3>Where you'll be</h3>
+                                        <div id="map" style="height: 20rem;"></div>
+                                        
+                                        <!-- Load Mapbox GL JS & CSS locally for this page -->
+                                        <link href="https://api.mapbox.com/mapbox-gl-js/v3.21.0/mapbox-gl.css" rel="stylesheet">
+                                        <script src="https://api.mapbox.com/mapbox-gl-js/v3.21.0/mapbox-gl.js"></script>
+                                    </div>
+
+                    </div>
+                    <script>
+                        let mapToken = "<%= mapToken %>";
+                        let coordinates = <%- JSON.stringify(property.geometry && property.geometry.coordinates ? property.geometry.coordinates : [77.209, 28.6139]) %>;
+                        let propertyLocation = "<%= property.location %>";
+                    </script>
+                    <script src="/js/map.js"></script>
+                </div>
+            </div>
+        </div>
+    </body>

@@ -1,0 +1,67 @@
+<% layout('/layouts/boilerplate') -%>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Create a New Listing</h1>
+        
+        <form action="/listings" method="POST" class="needs-validation" novalidate enctype="multipart/form-data" >
+            <!-- Title -->
+            <div class="mb-form">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="listing[title]" placeholder="enter title" required>
+                 <div class="valid-feedback">
+      Looks good!
+    </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-form">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="listing[description]" placeholder="enter description" required></textarea>
+                 <div class="invalid-feedback">
+        Please choose a valuable description.
+      </div>
+            </div>
+
+            <!-- Image Link -->
+            <div class="mb-form">
+                <label for="imageLink" class="form-label">Upload Image</label>
+                <input type="file" class="form-control" id="imageLink" name="listing[image][url]" placeholder="Upload Image" >
+            </div>
+
+            <!-- Price and Country Row -->
+            <div class="row">
+                <div class="col-md-4 mb-form">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="price" name="listing[price]" placeholder="enter price" required>
+                     <div class="invalid-feedback">
+        Please choose a valid Price.
+      </div>
+                </div>
+                <div class="col-md-8 mb-form">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" class="form-control" id="country" name="listing[country]" placeholder="enter country" required>
+                     <div class="invalid-feedback">
+        Please choose a Country Name.
+      </div>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="mb-form">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" name="listing[location]" placeholder="enter location" required>
+                 <div class="invalid-feedback">
+        Please choose a valid location.
+      </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-submit addbtn">Add</button>
+        </form>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

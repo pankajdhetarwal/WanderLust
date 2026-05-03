@@ -1,0 +1,35 @@
+<% layout('/layouts/boilerplate') -%>
+
+<body>
+    <div class="listings-container">
+        
+       
+        <% for (let listing of alllistings) { %>
+        <a href="/listings/<%=listing._id %>" class="listing-link">
+             <div class="listing-card">
+            <div class="card-image-wrapper">
+                <img src="<%=listing.image.url %>" class="card-image" alt="<%=listing.title %>">
+                <div class="badge">Guest favourite</div>
+                <button class="heart-icon">
+                    <i class="fa-solid fa-heart"></i>
+                </button>
+            </div>
+            <div class="card-info">
+                <h3 class="listing-title"><%=listing.title %></h3>
+                <p class="listing-location">
+                    <i class="fa-solid fa-location-dot"></i> <%= listing.location %>, <%= listing.country %>
+                </p>
+                <div class="listing-price">
+                    <span class="price">&#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %></span>
+                    <span class="per-night">per night</span>
+                </div>
+                <div class="listing-rating">
+                    <i class="fa-solid fa-star"></i> 4.87
+                </div>
+            </div>
+        </div>
+        </a>
+       
+        <% } %>
+    </div>
+</body>

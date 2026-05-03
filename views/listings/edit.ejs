@@ -1,0 +1,81 @@
+<% layout('/layouts/boilerplate') -%>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Edit Listing</h1>
+        
+        <form action="/listings/<%=property._id%>?_method=PUT" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+            <!-- Title -->
+            <div class="mb-form">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="listing[title]" value="<%=property.title %>" required>
+                        <div class="valid-feedback">
+      Looks good!
+    </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-form">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="listing[description]" required><%=property.description %></textarea>
+                  <div class="invalid-feedback">
+        Please choose a valuable description.
+      </div>
+            </div>
+
+            <!-- Image Link -->
+            <div class="mb-form">
+                Original Image Preview <br>
+                <img src="<%= originalImageUrl %>" alt="Listing Preview" class="img-thumbnail mb-2" />
+                <br>
+                <label for="imageLink" class="form-label">Upload New Image</label>
+                <input type="file" class="form-control" id="imageLink" name="listing[image][url]" >
+            </div>
+
+            <!-- Price and Country Row -->
+            <div class="row">
+                <div class="col-md-4 mb-form">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="price" name="listing[price]" value="<%=property.price %>" required>
+                             <div class="invalid-feedback">
+        Please choose a valid Price.
+      </div>
+                </div>
+                <div class="col-md-8 mb-form">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" class="form-control" id="country" name="listing[country]" value="<%= property.country %>" required>
+                          <div class="invalid-feedback">
+        Please choose a Country Name.
+      </div>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="mb-form">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" name="listing[location]" value="<%=property.location %>" required>
+                   <div class="invalid-feedback">
+        Please choose a valid location.
+      </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-submit addbtn" id="submitBtn">Update</button>
+        </form>
+    </div>
+
+    <script>
+        // Provide visual feedback during the slow upload process
+        const form = document.querySelector('form');
+        const submitBtn = document.getElementById('submitBtn');
+        form.addEventListener('submit', function() {
+            if(form.checkValidity()) {
+                submitBtn.innerHTML = 'Uploading... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+                submitBtn.disabled = true;
+            }
+        });
+    </script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
