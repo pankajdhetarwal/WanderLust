@@ -31,7 +31,12 @@ const listings=require("./routes/listing.js");
 const user=require("./routes/user.js");
 
 async function main() {
-  await mongoose.connect(dbUrl);
+  try {
+    await mongoose.connect(dbUrl);
+    console.log("Connected to MongoDB successfully");
+  } catch (err) {
+    console.log("MongoDB Connection Error:", err);
+  }
 }
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
@@ -117,9 +122,13 @@ app.all(/.*/, (req,res,next)=>{
 })
 
 //error handler middleware;
-app.use((err,req,res,next)=>{
-   
-    let {statusCode=500,message="something went wrong"}=err;
-    // res.status(statusCode).send(message);
-    res.render("error.ejs",{err});
+app.use((err, req, res, next) => {
+    let { statusCode = 500, message = "something went wrong" } = err;
+    console.error("APP ERROR:", err); 
+    
+    if (res.headersSent) {
+        return next(err);
+    }
+    
+    res.status(statusCode).render("error.ejs", { err });
 });
